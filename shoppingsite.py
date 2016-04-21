@@ -62,17 +62,29 @@ def shopping_cart():
     """Display content of shopping cart."""
 
     # TODO: Display the contents of the shopping cart.
-
     # The logic here will be something like:
-    #
     # - get the list-of-ids-of-melons from the session cart
+    
+    melon_order = session['cart']
+
     # - loop over this list:
+    order = {} 
+    for id in melon_order:
+        if id not in order:
+            order[id] = (melons.get_by_id(id).common_name, melons.get_by_id(id).price, melon_order.count(id))
+        # id = tuple(common_name, price, qty)
+
+    # make a dictiionary within dictionary
+
     #   - keep track of information about melon types in the cart
     #   - keep track of the total amt ordered for a melon-type
     #   - keep track of the total amt of the entire order
     # - hand to the template the total order cost and the list of melon types
 
-    return render_template("cart.html")
+
+
+    return render_template("cart.html", order=order)
+        )
 
 
 @app.route("/add_to_cart/<int:id>")

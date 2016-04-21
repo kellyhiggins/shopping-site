@@ -3,6 +3,12 @@
 
 {% block body %}
 
+<!-- determine quantity of melon by how many times Id appears in cart
+chart has as many rows as unique ids (set?)
+pull price from melons.py
+calculate price per type
+calculate total order cost -->
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -13,12 +19,16 @@
         </tr>
         </thead>
         <tbody>
+       { % for id in order % }
+       <!-- read through dictionary, and insert values -->
         <tr>
-            <td>Ancient Watermelon</td>
-            <td>5</td>
-            <td>$3.00</td>
-            <td>$15.00</td>
+            <td>order[id]["common_name"]</td>
+            <td>order[id][2]</td>
+            <td>order[id][1]</td>
+            <td>$order[id][2] * order[id][1]</td>
         </tr>
+
+
         <tr>
             <td>Charleston Gray</td>
             <td>2</td>
@@ -38,6 +48,7 @@
             <td>$6.00</td>
         </tr>
         </tbody>
+        { % endfor % }
     </table>
 
     <h3>Total: $27.00</h3>
